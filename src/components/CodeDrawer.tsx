@@ -99,6 +99,12 @@ const CodeDrawer: React.FC<CodeDrawerProps> = ({ open, onClose }) => {
           open={open}
           icon={<AccountTreeIcon />}
         />
+        <ListItemLink
+          text="Drawer2"
+          to="/drawer2"
+          open={open}
+          icon={<AccountTreeIcon />}
+        />
       </List>
       <Divider />
     </Drawer>

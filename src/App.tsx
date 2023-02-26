@@ -1,48 +1,26 @@
 import * as React from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import { useTheme } from "@mui/material/styles";
-import Box from "@mui/material/Box";
-import CssBaseline from "@mui/material/CssBaseline";
-import CodeAppBar from "./components/CodeAppBar";
-import CodeDrawer, { CodeDrawerHeader } from "./components/CodeDrawer";
-import Home from "./pages/Home";
-import Monaco from "./pages/Monaco";
+import HomePage from "./pages/Home";
+import MonacoPage from "./pages/Monaco";
 
 import "./App.css";
-import FileSystemNavigator from "./pages/FileSystemNavigator";
+import FileSystemNavigatorPage from "./pages/FileSystemNavigator";
+import Drawer2 from "./pages/Drawer2";
+import withApplication from "./components/Applcation";
 
-export default function MiniDrawer() {
-  const theme = useTheme();
-  const [open, setOpen] = React.useState(false);
+const Home = withApplication(HomePage);
+const Monaco = withApplication(MonacoPage);
+const FileSystemNavigator = withApplication(FileSystemNavigatorPage);
 
-  const handleDrawerOpen = () => {
-    setOpen(true);
-  };
-  const handleDrawerClose = () => {
-    setOpen(false);
-  };
-
+export default function App() {
   return (
     <Router>
-      <Box sx={{ display: "flex" }}>
-        <CssBaseline />
-        <CodeAppBar
-          open={open}
-          onOpen={handleDrawerOpen}
-          onClose={handleDrawerClose}
-        />
-        <CodeDrawer open={open} onClose={handleDrawerClose} />
-
-        <Box component="main" sx={{ flexGrow: 1 }}>
-          <CodeDrawerHeader />
-
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/monaco" element={<Monaco />} />
-            <Route path="/treeview" element={<FileSystemNavigator />} />
-          </Routes>
-        </Box>
-      </Box>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/monaco" element={<Monaco />} />
+        <Route path="/treeview" element={<FileSystemNavigator />} />
+        <Route path="/drawer2" element={<Drawer2 />} />
+      </Routes>
     </Router>
   );
 }

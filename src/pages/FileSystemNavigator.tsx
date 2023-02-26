@@ -3,6 +3,7 @@ import TreeView from "@mui/lab/TreeView";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import TreeItem from "@mui/lab/TreeItem";
+import useSWR from 'swr';
 
 import "./FileSystemNavigator.module.css";
 
@@ -33,6 +34,10 @@ const data: RenderTree = {
   ],
 };
 
+function fetcher<T>(url: string): Promise<T> {
+  return fetch(url).then((response) => response.json());
+}
+
 const renderTree = (nodes: RenderTree) => (
   <TreeItem key={nodes.id} nodeId={nodes.id} label={nodes.name}>
     {Array.isArray(nodes.children)
@@ -42,15 +47,26 @@ const renderTree = (nodes: RenderTree) => (
 );
 
 export default function FileSystemNavigator() {
+  const { data, isLoading, error } = useSWR('http://localhost:3000/api/v1/files', fetcher<RenderTree>);
+
+  if (error) {
+    return <div>Error fetching data</div>;
+  }
+
+  if (isLoading || !data) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <TreeView
       aria-label="file system navigator"
-      defaultCollapseIcon={<ExpandMoreIcon />}
-      defaultExpandIcon={<ChevronRightIcon />}
-      defaultExpanded={["root"]}
-      sx={{ height: 240, flexGrow: 1, maxWidth: 200, overflowY: "auto" }}
+      defaultCollapseIcon={<ExpandMoreIcon/>}
+      defaultExpandIcon={<ChevronRightIcon/>}
+      defaultExpanded={["src  "]}
+      sx={{ height: '100%', flexGrow: 1, maxWidth: 200, overflowY: "auto" }}
     >
       {renderTree(data)}
     </TreeView>
   );
 }
+

@@ -1,0 +1,21 @@
+#root {
+    display: flex;
+}
+
+.drawer {
+    width: 240px;
+    flex-shrink: 0;
+}
+
+.drawerPaper {
+    width: 240px,
+}
+
+.content {
+    flex-grow: 1;
+    padding: 16px;
+}
+
+.nested {
+    paddingLeft: 32px;
+}
