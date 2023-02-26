@@ -1,34 +1,48 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import './App.css'
+import * as React from "react";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { useTheme } from "@mui/material/styles";
+import Box from "@mui/material/Box";
+import CssBaseline from "@mui/material/CssBaseline";
+import CodeAppBar from "./components/CodeAppBar";
+import CodeDrawer, { CodeDrawerHeader } from "./components/CodeDrawer";
+import Home from "./pages/Home";
+import Monaco from "./pages/Monaco";
 
-function App() {
-  const [count, setCount] = useState(0)
+import "./App.css";
+import FileSystemNavigator from "./pages/FileSystemNavigator";
+
+export default function MiniDrawer() {
+  const theme = useTheme();
+  const [open, setOpen] = React.useState(false);
+
+  const handleDrawerOpen = () => {
+    setOpen(true);
+  };
+  const handleDrawerClose = () => {
+    setOpen(false);
+  };
 
   return (
-    <div className="App">
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src="/vite.svg" className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://reactjs.org" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </div>
-  )
-}
+    <Router>
+      <Box sx={{ display: "flex" }}>
+        <CssBaseline />
+        <CodeAppBar
+          open={open}
+          onOpen={handleDrawerOpen}
+          onClose={handleDrawerClose}
+        />
+        <CodeDrawer open={open} onClose={handleDrawerClose} />
 
-export default App
+        <Box component="main" sx={{ flexGrow: 1 }}>
+          <CodeDrawerHeader />
+
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/monaco" element={<Monaco />} />
+            <Route path="/treeview" element={<FileSystemNavigator />} />
+          </Routes>
+        </Box>
+      </Box>
+    </Router>
+  );
+}

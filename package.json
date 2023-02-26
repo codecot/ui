@@ -1,6 +1,6 @@
 {
   "name": "@codecot/ui",
-  "private": true,
+  "private": false,
   "version": "0.0.1",
   "type": "module",
   "author": "Volo Pasichnyk <vladimir.pasechnik@gmail.com>",
@@ -13,9 +13,20 @@
     "simpleserver": "node ../node_modules/yaserver/bin/yaserver --root ./dist --port 9999"
   },
   "dependencies": {
+    "@emotion/react": "^11.10.6",
+    "@emotion/styled": "^11.10.6",
+    "@fontsource/roboto": "^4.5.8",
+    "@monaco-editor/react": "^4.4.6",
+    "@mui/icons-material": "^5.11.9",
+    "@mui/lab": "^5.0.0-alpha.120",
+    "@mui/material": "^5.11.10",
+    "@mui/styles": "^5.11.9",
+    "@types/react-router-dom": "^5.3.3",
     "monaco-editor": "0.35.0",
+    "prettier": "^2.8.4",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.8.1"
   },
   "devDependencies": {
     "@types/react": "^18.0.27",
